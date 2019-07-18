@@ -8,37 +8,10 @@ command line tools to help scaffolding web application using Fano Framework.
 ## Requirement
 
 - [Free Pascal](https://www.freepascal.org/) >= 3.0
-- [libcurl development](https://curl.haxx.se/libcurl/)
 - Web Server (Apache, nginx)
 - [Fano Web Framework](https://github.com/fanoframework/fano)
 
 ## Installation
-
-### Build
-
-#### libcurl development package installation
-
-Check if libcurl package for development is installed by running `curl-config`.
-
-```
-$ curl-config --version
-```
-If libcurl installed you will get something like `libcurl x.xx.x` where `x.xx.x` is version. For example `libcurl 7.47.0` otherwise you get
-
-```
-The program 'curl-config' can be found in the following packages:
- * libcurl4-gnutls-dev
- * libcurl4-nss-dev
- * libcurl4-openssl-dev
-Try: sudo apt install <selected package>
-```
-
-In case libcurl not installed, run
-```
-$ sudo apt install libcurl4-gnutls-dev
-```
-
-### Free Pascal installation
 
 Make sure [Free Pascal](https://www.freepascal.org/) is installed. Run
 
@@ -136,16 +109,16 @@ For example on Apache,
          AllowOverride FileInfo
          Require all granted
          DirectoryIndex app.cgi
-         AddHandler cgi-script .cgi
+         AddHandler fcgid-script .cgi
      </Directory>
 </VirtualHost>
 ```
-On Apache, you will need to enable CGI module, such as `mod_cgi` or `mod_cgid`. If CGI module not loaded, above virtual host will cause `app.cgi` is downloaded instead of executed.
+On Apache, you will need to enable `mod_fcgid`. If correct module not loaded, above virtual host will cause `app.cgi` is downloaded instead of executed.
 
-For example, on Debian, this will enable `mod_cgi` module.
+For example, on Debian, this will enable `mod_fcgid` module.
 
 ```
-$ sudo a2enmod cgi
+$ sudo a2enmod fcgid
 $ sudo systemctl restart apache2
 ```
 
@@ -163,33 +136,6 @@ and put `.htaccess` file in same directory as `app.cgi` file (i.e., in `public` 
 
 Content of `.htaccess` basically tells Apache to serve existing files/directories directly. For any non-existing files/directories, pass them to our application.
 
-### Simulate run on command line
-
-```
-$ cd public
-$ REQUEST_METHOD=GET \
-  REQUEST_URI=/test/test \
-  SERVER_NAME=juhara.com \
-  ./app.cgi
-```
-
-`tools/simulate.run.sh` is bash script that can be used to simplify simulating run
-application in shell.
-
-    $ ./tools/simulate.run.sh
-
-or to change route to access, set `REQUEST_URI` variable.
-
-    $ REQUEST_URI=/test/test ./tools/simulate.run.sh
-
-This is similar to simulating browser requesting this page,for example,
-
-    $ wget -O- http://[your fano app hostname]/test/test
-
-However, running using `tools/simulate.run.sh` allows you to view output of `heaptrc`
-unit for detecting memory leak (if you enable `-gh` switch in `build.dev.cfg`).
-
-
 ## Deployment
 
 You need to deploy only executable binary and any supporting files such as HTML templates, images, css stylesheets, application config.
@@ -198,6 +144,8 @@ Any `pas` or `inc` files or shell scripts is not needed in deployment machine in
 So for this repository, you will need to copy `public`, `Templates`, `config`
 and `storages` directories to your deployment machine. make sure that
 `storages` directory is writable by web server.
+
+For more information [Deploy as FastCGI application](https://fanoframework.github.io/deployment/fastcgi/)
 
 ## Known Issues
 
