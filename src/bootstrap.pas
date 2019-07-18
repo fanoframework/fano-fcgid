@@ -15,7 +15,7 @@ uses
 
 type
 
-    TBootstrapApp = class(TSimpleFastCGIWebApplication)
+    TBootstrapApp = class(TSimpleSockFastCGIWebApplication)
     protected
         procedure buildDependencies(const container : IDependencyContainer); override;
         procedure buildRoutes(const container : IDependencyContainer); override;
@@ -29,7 +29,9 @@ uses
     (*! -------------------------------
      *   controllers factory
      *----------------------------------- *)
-    {---- put your controller factory here ---};
+    {---- put your controller factory here ---},
+    HomeControllerFactory,
+    HomeViewFactory;
 
 
     procedure TBootstrapApp.buildDependencies(const container : IDependencyContainer);
@@ -40,7 +42,7 @@ uses
     procedure TBootstrapApp.buildRoutes(const container : IDependencyContainer);
     var router : IRouter;
     begin
-        router := container.get('router') as IRouter;
+        router := container.get(GUIDToString(IRouter)) as IRouter;
         try
             {$INCLUDE Routes/routes.inc}
         finally

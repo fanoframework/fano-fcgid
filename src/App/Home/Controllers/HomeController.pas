@@ -5,22 +5,27 @@
  * @copyright Copyright (c) [[COPYRIGHT_YEAR]] [[COPYRIGHT_HOLDER]]
  * @license   [[LICENSE_URL]] ([[LICENSE]])
  *------------------------------------------------------------- *)
-program app;
+unit HomeController;
+
+interface
 
 uses
 
-    fano,
-    bootstrap;
+    fano;
 
-var
-    appInstance : IWebApplication;
+type
 
-begin
     (*!-----------------------------------------------
-     * Bootstrap FastCGI application
+     * controller that handle route :
+     * /home
      *
-     * @author AUTHOR_NAME <author@email.tld>
+     * See Routes/Home/routes.inc
+     *
+     * @author [[AUTHOR_NAME]] <[[AUTHOR_EMAIL]]>
      *------------------------------------------------*)
-    appInstance := TBootstrapApp.create();
-    appInstance.run();
+    THomeController = class(TController)
+    end;
+
+implementation
+
 end.

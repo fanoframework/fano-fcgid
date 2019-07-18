@@ -41,6 +41,12 @@
 #----------------------------------------------
 -Fu$USER_APP_DIR$/Dependencies
 -Fu$USER_APP_DIR$/Routes
+-Fu$USER_APP_DIR$/App/Home/Controllers
+-Fu$USER_APP_DIR$/App/Home/Controllers/Factories
+-Fu$USER_APP_DIR$/App/Home/Views
+-Fu$USER_APP_DIR$/App/Home/Views/Factories
+
+
 #-Fu$USER_APP_DIR$/path/to/other/units
 #-Fu$USER_APP_DIR$/path/to/other/units
 
@@ -49,7 +55,7 @@
 # USER_APP_DIR is contains user application base directory
 #----------------------------------------------
 -Fi$USER_APP_DIR$/Dependencies
--Fi$USER_APP_DIR$/Routes/home
+-Fi$USER_APP_DIR$/Routes/Home
 #-Fu$USER_APP_DIR$/path/to/other/include/files
 
 #----------------------------------------------
