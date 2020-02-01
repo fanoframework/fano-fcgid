@@ -25,7 +25,7 @@ begin
         TFastCgiAppServiceProvider.create(
             TServerAppServiceProvider.create(
                 TMyAppServiceProvider.create(),
-                TBoundSocketSvr.create(StdInputHandle)
+                (TBoundSvrFactory.create(StdInputHandle) as ISocketSvrFactory).build()
             )
         ),
         TMyAppRoutes.create()
