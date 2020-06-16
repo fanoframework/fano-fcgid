@@ -1,17 +1,33 @@
-# Fano Web Framework Skeleton Application
+# FastCGI Fano Web Framework Skeleton Application
 
-Web application skeleton using Fano Framework, Pascal web application framework
+FastCGI web application skeleton using Fano Framework, Pascal web application framework. It uses Apache mod_fcgid module.
 
 This project is generated using [Fano CLI](https://github.com/fanoframework/fano-cli)
 command line tools to help scaffolding web application using Fano Framework.
 
 ## Requirement
 
+- Linux or FreeBSD
 - [Free Pascal](https://www.freepascal.org/) >= 3.0
-- Web Server (Apache, nginx)
-- [Fano Web Framework](https://github.com/fanoframework/fano)
+- Apache with [mod_fcgid](https://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html)
+- [Fano CLI](https://github.com/fanoframework/fano-cli)
+- Administrative privilege for virtual host setup
 
 ## Installation
+
+### TL;DR
+Make sure all requirements above are met. Run
+
+```
+$ git clone https://github.com:fanofamework/fano-fcgid.git --recursive
+$ cd fano-fcgid
+$ ./tools/config.setup.sh
+$ ./build.sh
+$ sudo fanocli --deploy-fcgid=hello.fano
+```
+Open browser and go to `http://hello.fano`, you should see application.
+
+### Build
 
 Make sure [Free Pascal](https://www.freepascal.org/) is installed. Run
 
@@ -21,7 +37,7 @@ If you see something like `Free Pascal Compiler version 3.0.4`,  you are good to
 
 Clone this repository
 
-    $ git clone git@github.com:fanofamework/fano-app.git --recursive
+    $ git clone https://github.com:fanofamework/fano-fcgid.git --recursive
 
 `--recursive` is needed so git also pull [Fano](https://github.com/fanoframework/fano) repository.
 
@@ -115,9 +131,10 @@ For example on Apache,
 ```
 On Apache, you will need to enable `mod_fcgid`. If correct module not loaded, above virtual host will cause `app.cgi` is downloaded instead of executed.
 
-For example, on Debian, this will enable `mod_fcgid` module.
+For example, on Debian, this will install and enable `mod_fcgid` module.
 
 ```
+$ sudo apt install libapache2-mod-fcgid
 $ sudo a2enmod fcgid
 $ sudo systemctl restart apache2
 ```
